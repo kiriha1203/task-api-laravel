@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('assign', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedInteger('task_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('assign');
+        Schema::dropIfExists('contacts');
     }
 };
