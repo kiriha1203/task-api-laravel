@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Task;
 
-class UsersController extends Controller
+class TasksController extends Controller
 {
     public function index()
     {
-        $users = User::get();
+        $tasks = Task::get();
         return response()->json([
-            $users
+            $tasks
         ]);
     }
 }

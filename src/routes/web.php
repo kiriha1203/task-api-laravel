@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ use App\Http\Controllers\UsersController;
 
 // Route::get('/', [UsersController::class, 'viewIndex'])->name('users.index');
 Route::get('/', [UsersController::class, 'index']);
+Route::get('/a', [TasksController::class, 'index']);
