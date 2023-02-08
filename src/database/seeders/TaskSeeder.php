@@ -26,7 +26,6 @@ class TaskSeeder extends Seeder
                 'context' => 'AtCoder Beginners Selection',
                 'status' => 'waiting',
                 'create_user_id' => '1',
-                'update_user_id' => '1',
                 'created_at' => '2023-02-11 12:11:11',
                 'updated_at' => '2023-02-13 14:22:33'
             ],
@@ -36,7 +35,6 @@ class TaskSeeder extends Seeder
                 'context' => '実装を行う',
                 'status' => 'working',
                 'create_user_id' => '2',
-                'update_user_id' => '1',
                 'created_at' => '2023-02-11 12:11:11',
                 'updated_at' => '2023-02-13 14:22:33'
             ],
@@ -46,7 +44,6 @@ class TaskSeeder extends Seeder
                 'context' => 'MVCモデルでの実装',
                 'status' => 'completed',
                 'create_user_id' => '3',
-                'update_user_id' => '1',
                 'created_at' => '2023-02-11 12:11:11',
                 'updated_at' => '2023-02-13 14:22:33'
             ],
@@ -56,7 +53,6 @@ class TaskSeeder extends Seeder
                 'context' => 'ADRモデルでの実装',
                 'status' => 'waiting',
                 'create_user_id' => '4',
-                'update_user_id' => '1',
                 'created_at' => '2023-02-11 12:11:11',
                 'updated_at' => '2023-02-13 14:22:33'
             ],
@@ -66,7 +62,6 @@ class TaskSeeder extends Seeder
                 'context' => '技術書を読む',
                 'status' => 'working',
                 'create_user_id' => '5',
-                'update_user_id' => '1',
                 'created_at' => '2023-02-11 12:11:11',
                 'updated_at' => '2023-02-13 14:22:33'
             ]

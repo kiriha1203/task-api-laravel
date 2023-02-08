@@ -17,12 +17,10 @@ return new class extends Migration
             $table->text('context');
             $table->enum('status', ['waiting', 'working', 'completed']);
             $table->unsignedInteger('create_user_id');
-            $table->unsignedInteger('update_user_id');
             $table->timestamps();
 
 
             $table->foreign('create_user_id')->references('id')->on('users');
-            $table->foreign('update_user_id')->references('id')->on('users');
         });
     }
 
