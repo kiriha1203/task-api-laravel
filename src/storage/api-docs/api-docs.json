@@ -1,0 +1,230 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Task API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "getIndex",
+                "operationId": "eaedf6aa84fde38a08bf5d87308169f7",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/User"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "fetch",
+                "operationId": "07763cc87d824a8cd013165021902fab",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "user id",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "update",
+                "operationId": "e43c150d7bf8a4e8df416696a0ce3302",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "description": "user id",
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string",
+                                        "example": "変更太郎"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "create",
+                "operationId": "37f9107a5ce33dbc67845693ce4052d4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string",
+                                        "example": "テスト太郎"
+                                    },
+                                    "email": {
+                                        "description": "email",
+                                        "type": "string",
+                                        "example": "test@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "delete",
+                "operationId": "421050e5bb8d5cc89ec5ab745d4a2e8e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "description": "user id",
+                                        "type": "integer",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "format": "string",
+                        "example": "山田太郎"
+                    },
+                    "email": {
+                        "description": "email",
+                        "type": "string",
+                        "format": "string",
+                        "example": "test@example.com"
+                    },
+                    "create_at": {
+                        "description": "create_at",
+                        "type": "timestamp",
+                        "format": "timestamp",
+                        "example": "2023-02-01T12:11:11.000000Z"
+                    },
+                    "update_at": {
+                        "description": "update_at",
+                        "type": "timestamp",
+                        "format": "timestamp",
+                        "example": "2023-02-01T12:11:11.000000Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
