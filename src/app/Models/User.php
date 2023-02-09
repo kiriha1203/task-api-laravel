@@ -15,7 +15,9 @@ class User extends Model
 
     protected $fillable = [
         'name',
+        'email',
     ];
+
 
     public function tasks()
     {

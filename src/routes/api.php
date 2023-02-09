@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TasksController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+
+Route::get('/users', [UsersController::class, 'index']);
+Route::get('/user', [UsersController::class, 'fetch']);
+Route::post('/user', [UsersController::class, 'create']);
+Route::put('/user', [UsersController::class, 'update']);
+Route::delete('/user', [UsersController::class, 'delete']);
+
+Route::get('/task', [TasksController::class, 'index']);
