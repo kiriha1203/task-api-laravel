@@ -52,7 +52,7 @@ php artisan db:migrate
 # seedデータの追加
 php artisan db:seed --class=UserSeeder
 php artisan db:seed --class=TaskSeeder
-php artisan db:seed --class=ContactSeeder
+php artisan db:seed --class=TaskUserSeeder
 
 # swagger のインストール
 composer require "darkaonline/l5-swagger"
