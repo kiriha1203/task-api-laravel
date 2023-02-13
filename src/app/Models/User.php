@@ -66,12 +66,9 @@ class User extends Model
     {
         return $this->hasMany(Task::class, 'create_user_id');
     }
-    public function contacts()
+
+    public function userTasks()
     {
-        return $this->hasMany(Contact::class);
-    }
-    public function contact_tasks()
-    {
-        return $this->belongsToMany(Task::class, 'contacts', 'user_id', 'task_id');
+        return $this->belongsToMany(Task::class, 'task_user', 'task_id', 'user_id');
     }
 }

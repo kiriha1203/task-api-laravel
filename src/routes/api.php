@@ -27,4 +27,7 @@ Route::post('/user', [UsersController::class, 'create']);
 Route::put('/user', [UsersController::class, 'update']);
 Route::delete('/user', [UsersController::class, 'delete']);
 
-Route::get('/task', [TasksController::class, 'index']);
+Route::get('/tasks', [TasksController::class, 'index']);
+// Route::get('/task', [TasksController::class, 'fetch']);
+// Route::post('/task', [TasksController::class, 'create']);
+// Route::put('/task', [TasksController::class, 'update']);

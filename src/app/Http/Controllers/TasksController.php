@@ -9,9 +9,9 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::get();
+        $tasks = Task::with('taskUsers')->get();
         return response()->json([
-            $tasks
+            'tasks' => $tasks
         ]);
     }
 }
