@@ -14,10 +14,10 @@ class ContactSeeder extends Seeder
     public function run(): void
     {
         // 中身の削除
-        DB::table('contacts')->truncate();
+        DB::table('task_user')->truncate();
 
         // データ挿入
-        DB::table('contacts')->insert([
+        DB::table('task_user')->insert([
             [
                 'id' => 1,
                 'task_id' => 1,
