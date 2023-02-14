@@ -64,7 +64,7 @@ class User extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'create_user_id');
+        return $this->hasMany(Task::class);
     }
 
     public function userTasks()
