@@ -22,8 +22,7 @@ class TasksController extends Controller
             'status' => $request->status,
             'create_user_id' => $request->create_user_id,
         ]);
-        
-        if ( 0 < count($request->assign_user_ids) ) {
+        if ( !empty($request->assign_user_ids) ) {
             $task->taskUsers()->attach($request->assign_user_ids);
         }
 
@@ -32,6 +31,17 @@ class TasksController extends Controller
                                     ->find($task->id);
 
         return response()->json($responseTask);
+    }
+
+    public function update(Request $request) {
+        $task = Task::with('user:id,name')
+                        ->with('taskUsers:id,name')
+                            ->find($request->task_id);
+        $task->update([
+            'title' => $request->title,
+            'context' => $request->context,
+            'status' => $request->status,
+        ]);
     }
 
 
