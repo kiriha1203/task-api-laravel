@@ -45,4 +45,48 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /**
+     * Render an exception into an HTTP response.
+     * 
+     * APIエラーの場合、apiErrorResponse をcall
+     * Webエラーの場合、ここで完結
+     */
+    public function render(Request $request, Exception $e)
+    {
+        if ($request->('api/*')) {
+            return $this->apiErrorResponse($request, $e);
+        }
+
+        return parent::render($request, $e);
+    }
+
+    private function apiErrorResponse(Request $request, Exception $e)
+    {
+        $e = $this->prepareException($e);
+        if($e instanceof HttpRequestException) {
+            return $e->getResponse();
+        } elseif ($e instanceof ValidationException) {
+            $status = $e->status;
+            $message = Response::$statusTexts[$status];
+            $errors = $e->errors();
+        } elseif ($e instanceof isHttpException($e)) {
+            $status = $e->getStatusCode();
+            $message = (isset(Response::$statusTexts[$status])) ? Response::$statusTexts[$status] : '';
+            $errors = [];
+        } else {
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $message = 'Server Error';
+            $errors = [];
+        }
+
+        // ResponseApiServerProviderが実行される前にエラーが発生した時
+        if (! method_exists(response(), 'error')) {
+            $app = app();
+            $provide = new ResponseApiServiceProvider($app);
+            $provide->boot();
+        }
+
+        return response()->error($message, $error, $status);
+    }
 }

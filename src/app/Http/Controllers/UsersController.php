@@ -30,11 +30,11 @@ class UsersController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function index()
+    public function index():Response
     {
         $users = User::get();
 
-        return response()->json([
+        return response()->success([
             'users' => $users
         ]);
     }
@@ -75,7 +75,10 @@ class UsersController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function create(Request $request) {
+    public function create(Request $request):Response
+    {
+        $id, $name, $email = $request->input('id')
+
         $user = User::create([
             'name' => $request->name,
             "email" => $request->email,
