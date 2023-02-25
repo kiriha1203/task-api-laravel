@@ -38,7 +38,7 @@ use App\Models\User;
  *          property="status",
  *          description="Task status",
  *          type="string",
- *          enum={'waiting', 'working', 'completed'},
+ *          enum={"waiting","working","completed"},
  *          example="waiting"
  *       ),
  *      @OA\Property(
@@ -55,6 +55,60 @@ use App\Models\User;
  *          format="timestamp",
  *          example="2023-02-01T12:11:11.000000Z"
  *      ),
+ *      @OA\Property(
+ *          property="user",
+ *          description="create user",
+ *          type="object",
+ *          @OA\Property(
+ *              property="id",
+ *              type="integer",
+ *              example="1",
+ *              description="create user id"
+ *          ),
+ *          @OA\Property(
+ *              property="name",
+ *              type="string",
+ *              example="test user1",
+ *              description="create user name"
+ *          ),
+ *      ),
+ *       @OA\Property(
+ *          property="task_users",
+ *          description="assign users",
+ *          type="array",
+ *          @OA\Items(
+ *              @OA\Property(
+ *                  property="id",
+ *                  type="integer",
+ *                  example="1",
+ *                  description="assign user id"
+ *              ),
+ *              @OA\Property(
+ *                  property="name",
+ *                  type="string",
+ *                  example="test user1",
+ *                  description="assign user name"
+ *              ),
+ *              @OA\Property(
+ *                  property="pivot",
+ *                  description="pivot",
+ *                  type="object",
+ *                  @OA\Property(
+ *                      property="task_id",
+ *                      type="integer",
+ *                      example="1",
+ *                      description="task id"
+ *                  ),
+ *                  @OA\Property(
+ *                      property="user_id",
+ *                      type="integer",
+ *                      example="1",
+ *                      description="user id"
+ *                  ),
+ *              ),
+ *          ),
+ *      ),
+ *
  * )
  */
 
