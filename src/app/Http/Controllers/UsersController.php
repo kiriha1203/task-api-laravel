@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Responses\ApiErrorResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-
 use App\Http\Responses\ApiSuccessResponse;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,25 +22,56 @@ class UsersController extends Controller
      *      description="success",
      *          @OA\JsonContent(
      *              @OA\Property(
-     *                  property="users",
-     *                  type="array",
-     *                  @OA\Items(
-     *                      ref="#/components/schemas/User"
+     *                  property="data",
+     *                  @OA\Property(
+     *                      property="users",
+     *                      type="array",
+     *                      @OA\Items(
+     *                          ref="#/components/schemas/User"
+     *                      ),
+     *                  ),
+     *              ),
+     *              @OA\Property(
+     *                  property="metadata",
+     *                  @OA\Property(
+     *                      property="message",
+     *                      type="string",
+     *                      example="Users get index successfully"
      *                  ),
      *              ),
      *          ),
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="An error occurred while trying to get the users index"
+     *              ),
+     *          ),
+     *      ),
      * )
      *
      * @param \Illuminate\Http\Request $request
      */
     public function index()
     {
-        $users = User::get();
+        try {
+            $users = User::get();
 
-        return response()->json([
-            'users' => $users
-        ]);
+            return new ApiSuccessResponse(
+                ['users' => $users],
+                ['message' => 'Users get index successfully'],
+                Response::HTTP_OK
+            );
+        } catch (Throwable $exception) {
+            return new ApiErrorResponse(
+                'An error occurred while trying to get the users index',
+                $exception
+            );
+        }
     }
 
     /**
@@ -70,13 +99,37 @@ class UsersController extends Controller
      *          ),
      *      ),
      *      @OA\Response(
-     *      response="200",
-     *      description="success",
+     *          response="200",
+     *          description="success",
      *          @OA\JsonContent(
-     *                  ref="#/components/schemas/User"
+     *              @OA\Property(
+     *                  property="data",
+     *                  @OA\Property(
+     *                      property="user",
+     *                      ref="#/components/schemas/User"
+     *                  ),
+     *              ),
+     *              @OA\Property(
+     *                  property="metadata",
+     *                  @OA\Property(
+     *                      property="message",
+     *                      type="string",
+     *                      example="User was created successfully"
+     *                  ),
      *              ),
      *          ),
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="An error occurred while trying to create the user"
+     *              ),
+     *          ),
+     *      ),
      * )
      *
      * @param \Illuminate\Http\Request $request
@@ -118,19 +171,54 @@ class UsersController extends Controller
      *          response="200",
      *          description="success",
      *          @OA\JsonContent(
-     *                  ref="#/components/schemas/User"
+     *              @OA\Property(
+     *                  property="data",
+     *                  @OA\Property(
+     *                      property="user",
+     *                      ref="#/components/schemas/User"
+     *                  ),
+     *              ),
+     *              @OA\Property(
+     *                  property="metadata",
+     *                  @OA\Property(
+     *                      property="message",
+     *                      type="string",
+     *                      example="User get successfully"
+     *                  ),
      *              ),
      *          ),
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="An error occurred while trying to create the user"
+     *              ),
+     *          ),
+     *      ),
      * )
      *
      * @param \Illuminate\Http\Request $request
      */
     public function fetch(Request $request)
     {
-        $user = User::find($request->user_id);
+        try {
+            $user = User::find($request->user_id);
 
-        return response()->json($user);
+            return new ApiSuccessResponse(
+                ['user' => $user],
+                ['message' => 'User get successfully'],
+                Response::HTTP_OK
+            );
+        } catch (Throwable $exception) {
+            return new ApiErrorResponse(
+                'An error occurred while trying to get the user',
+                $exception
+            );
+        }
     }
 
     /**
@@ -158,24 +246,60 @@ class UsersController extends Controller
      *          ),
      *      ),
      *      @OA\Response(
-     *      response="200",
-     *      description="success",
+     *          response="200",
+     *          description="success",
      *          @OA\JsonContent(
-     *                  ref="#/components/schemas/User"
+     *              @OA\Property(
+     *                  property="data",
+     *                  @OA\Property(
+     *                      property="user",
+     *                      ref="#/components/schemas/User"
+     *                  ),
+     *              ),
+     *              @OA\Property(
+     *                  property="metadata",
+     *                  @OA\Property(
+     *                      property="message",
+     *                      type="string",
+     *                      example="User update successfully"
+     *                  ),
      *              ),
      *          ),
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="An error occurred while trying to update the user"
+     *              ),
+     *          ),
+     *      ),
      * )
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function update(Request $request) {
-        $user = User::find($request->user_id);
-        $user->update([
-            'name' => $request->name,
-        ]);
+    public function update(Request $request)
+    {
+        try {
+            $user = User::find($request->user_id);
+            $user->update([
+                'name' => $request->name,
+            ]);
 
-        return response()->json($user);
+            return new ApiSuccessResponse(
+                ['user' => $user],
+                ['message' => 'User update successfully'],
+                Response::HTTP_OK
+            );
+        } catch (Throwable $exception) {
+            return new ApiErrorResponse(
+                'An error occurred while trying to update the user',
+                $exception
+            );
+        }
     }
 
     /**
@@ -197,18 +321,60 @@ class UsersController extends Controller
      *          ),
      *      ),
      *      @OA\Response(
-     *      response="200",
-     *      description="success",
-     *      )
+     *          response="200",
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                    type="string",
+     *                    nullable="true",
+     *                    example="",
+     *                  ),
+     *              ),
+     *              @OA\Property(
+     *                  property="metadata",
+     *                  @OA\Property(
+     *                      property="message",
+     *                      type="string",
+     *                      example="User delete successfully"
+     *                  ),
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="An error occurred while trying to delete the user"
+     *              ),
+     *          ),
+     *      ),
      * )
      *
      * @param \Illuminate\Http\Request $request
      */
 
-    public function delete(Request $request) {
-        $user = User::find($request->user_id);
-        $user->delete();
+    public function delete(Request $request)
+    {
+        try {
+            $user = User::find($request->user_id);
+            $user->delete();
 
-        return response()->json();
+            return new ApiSuccessResponse(
+                [],
+                ['message' => 'User delete successfully'],
+                Response::HTTP_OK
+            );
+        } catch (Throwable $exception) {
+            return new ApiErrorResponse(
+                'An error occurred while trying to delete the user',
+                $exception
+            );
+        }
     }
 }
