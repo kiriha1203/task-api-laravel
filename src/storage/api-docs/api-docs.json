@@ -366,6 +366,103 @@
     },
     "components": {
         "schemas": {
+            "Task": {
+                "description": "Task model",
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "title": {
+                        "description": "Task title",
+                        "type": "string",
+                        "format": "string",
+                        "example": "タイトル"
+                    },
+                    "context": {
+                        "description": "Task context",
+                        "type": "string",
+                        "format": "string",
+                        "example": "内容"
+                    },
+                    "status": {
+                        "description": "Task status",
+                        "type": "string",
+                        "enum": [
+                            "waiting",
+                            "working",
+                            "completed"
+                        ],
+                        "example": "waiting"
+                    },
+                    "create_at": {
+                        "description": "create_at",
+                        "type": "timestamp",
+                        "format": "timestamp",
+                        "example": "2023-02-01T12:11:11.000000Z"
+                    },
+                    "update_at": {
+                        "description": "update_at",
+                        "type": "timestamp",
+                        "format": "timestamp",
+                        "example": "2023-02-01T12:11:11.000000Z"
+                    },
+                    "user": {
+                        "description": "create user",
+                        "properties": {
+                            "id": {
+                                "description": "create user id",
+                                "type": "integer",
+                                "example": "1"
+                            },
+                            "name": {
+                                "description": "create user name",
+                                "type": "string",
+                                "example": "test user1"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "task_users": {
+                        "description": "assign users",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "description": "assign user id",
+                                    "type": "integer",
+                                    "example": "1"
+                                },
+                                "name": {
+                                    "description": "assign user name",
+                                    "type": "string",
+                                    "example": "test user1"
+                                },
+                                "pivot": {
+                                    "description": "pivot",
+                                    "properties": {
+                                        "task_id": {
+                                            "description": "task id",
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "user_id": {
+                                            "description": "user id",
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "description": "User model",
                 "properties": {
