@@ -5,6 +5,355 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "task"
+                ],
+                "summary": "getIndex",
+                "operationId": "49e73b9da657e3e2dac88d10e4ffaa4b",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "tasks": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Task"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "metadata": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Tasks get index successfully"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occurred while trying to get the tasks index"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/task": {
+            "put": {
+                "tags": [
+                    "task"
+                ],
+                "summary": "update",
+                "operationId": "a46f7af3b807349e02ea9fa756129dad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "task_id",
+                                    "title",
+                                    "context",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "task_id": {
+                                        "description": "task id",
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "title": {
+                                        "description": "name",
+                                        "type": "string",
+                                        "example": "変更タイトル"
+                                    },
+                                    "context": {
+                                        "description": "context",
+                                        "type": "string",
+                                        "example": "内容変更"
+                                    },
+                                    "status": {
+                                        "description": "Task status",
+                                        "type": "string",
+                                        "enum": [
+                                            "waiting",
+                                            "working",
+                                            "completed"
+                                        ],
+                                        "example": "completed"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "task": {
+                                                    "$ref": "#/components/schemas/Task"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "metadata": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Task update successfully"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occurred while trying to update the task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "task"
+                ],
+                "summary": "create",
+                "operationId": "a6c0ed62b3b163451d5403011aa95a49",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "context",
+                                    "status",
+                                    "create_user_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "title",
+                                        "type": "string",
+                                        "example": "タイトル"
+                                    },
+                                    "context": {
+                                        "description": "context",
+                                        "type": "string",
+                                        "example": "内容"
+                                    },
+                                    "status": {
+                                        "description": "Task status",
+                                        "type": "string",
+                                        "enum": [
+                                            "waiting",
+                                            "working",
+                                            "completed"
+                                        ],
+                                        "example": "waiting"
+                                    },
+                                    "create_user_id": {
+                                        "description": "create user id",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "assign_user_ids": {
+                                        "description": "assign users",
+                                        "type": "array",
+                                        "items": {
+                                            "description": "assign user id",
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "task": {
+                                                    "$ref": "#/components/schemas/Task"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "metadata": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Task was created successfully"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occurred while trying to create the task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/task/assign": {
+            "put": {
+                "tags": [
+                    "task"
+                ],
+                "summary": "update",
+                "operationId": "dd99fc4ae7ec54479f994cf69d56d499",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "task_id"
+                                ],
+                                "properties": {
+                                    "task_id": {
+                                        "description": "task id",
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "assign_user_ids": {
+                                        "description": "assign users",
+                                        "type": "array",
+                                        "items": {
+                                            "description": "assign user id",
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "task": {
+                                                    "$ref": "#/components/schemas/Task"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "metadata": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Task update successfully"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occurred while trying to update the task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
