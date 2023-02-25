@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Responses\ApiErrorResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+use App\Http\Responses\ApiSuccessResponse;
 use App\Models\User;
+use Symfony\Component\HttpFoundation\Response;
 use OpenApi\Annotations as OA;
+use Throwable;
 
 class UsersController extends Controller
 {
@@ -75,13 +81,25 @@ class UsersController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function create(Request $request) {
-        $user = User::create([
-            'name' => $request->name,
-            "email" => $request->email,
-        ]);
+    public function create(Request $request)
+    {
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                "email" => $request->email,
+            ]);
 
-        return response()->json($user);
+            return new ApiSuccessResponse(
+                ['user' => $user],
+                ['message' => 'User was created successfully'],
+                Response::HTTP_CREATED
+            );
+        } catch (Throwable $exception) {
+            return new ApiErrorResponse(
+                'An error occurred while trying to create the user',
+                $exception
+            );
+        }
     }
 
     /**
@@ -108,7 +126,8 @@ class UsersController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function fetch(Request $request) {
+    public function fetch(Request $request)
+    {
         $user = User::find($request->user_id);
 
         return response()->json($user);
