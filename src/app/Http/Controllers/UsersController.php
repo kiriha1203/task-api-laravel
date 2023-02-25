@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Responses\ApiErrorResponse;
-use Illuminate\Http\Request;
-use App\Http\Responses\ApiSuccessResponse;
 use App\Models\User;
+
+use App\Http\Responses\ApiErrorResponse;
+use App\Http\Responses\ApiSuccessResponse;
+
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use OpenApi\Annotations as OA;
 use Throwable;
+
+// TODO: validationの追加
 
 class UsersController extends Controller
 {
