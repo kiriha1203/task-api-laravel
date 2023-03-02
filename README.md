@@ -54,6 +54,9 @@ php artisan db:seed --class=UserSeeder
 php artisan db:seed --class=TaskSeeder
 php artisan db:seed --class=TaskUserSeeder
 
+# HTTPレスポンス一覧のインストール
+composer require symfony/http-foundation
+
 # swagger のインストール
 composer require "darkaonline/l5-swagger"
 

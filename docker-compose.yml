@@ -31,5 +31,18 @@ services:
     volumes:
       - mysql-volume:/var/lib/mysql
 
+  db-test:
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      - 3000:3306
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+
 volumes:
   mysql-volume:
